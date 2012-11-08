@@ -66,8 +66,8 @@ fqlwb.Bench.prototype = utils.mixin({
     if (! this.debug) {
       this.server.console.filters.processBuffer = function(chunk) {
         self.session.connect().ready(function(){
-          self.session.query(chunk).complete(function(data){
-            self.writeToSocket(yaml.stringify(data));
+          self.session.query(chunk).complete(function(data, time){
+            self.writeToSocket(yaml.stringify(data), "Query took ".cyan + time.green + " seconds to execute.".cyan);
           });
         });
 
@@ -88,8 +88,8 @@ fqlwb.Bench.prototype = utils.mixin({
 
     this.scope = utils.mixin(this.scope, {
       $$ : function(query) {
-        self.session.query(query).complete(function(data){
-          self.writeToSocket(yaml.stringify(data));
+        self.session.query(query).complete(function(data, time){
+          self.writeToSocket(yaml.stringify(data), "Query took ".cyan + time.green + " seconds to execute.".cyan);
         })
 
         return this;
@@ -104,7 +104,7 @@ fqlwb.Bench.prototype = utils.mixin({
     return this;
   },
 
-  writeToSocket : function(data) {
+  writeToSocket : function(data, yield) {
     var server = (this.server && typeof this.server === 'object' ?
                     this.server :
                     (this.daemon && typeof this.daemon === 'object' ?
@@ -117,6 +117,7 @@ fqlwb.Bench.prototype = utils.mixin({
     }
     else {
       process.stdout.write('\n' + data +'\n');
+      process.stdout.write((yield || "") + '\n');
       process.stdout.write(server.console.sig);
     }
 
