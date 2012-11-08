@@ -1,6 +1,6 @@
 {
   "name": "fql-workbench",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A FQL Workbench tool",
   "keywords": [
     "facebook",
@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "fbgraph"       : "0.2.5",
-    "repl-console"  : "0.3.x",
+    "repl-console"  : "0.4.1",
     "request"       : "2.11.x",
     "utilities"     : "0.0.x",
     "colors"        : "0.6.0-1",
