@@ -35,6 +35,7 @@ opts = [
   , {full: 'host', abbr: 'h', args: true}
   , {full: 'uid', abbr: 'u', args: true}
   , {full: 'port', abbr: 'p', args: true}
+  , {full: 'user', abbr: 'U'}
 ];
 
 parser = new parseopts.Parser(opts);
@@ -60,6 +61,10 @@ switch (cmds[1]) {
     }
 
     bench.connect(opts.host);
+
+    if (opts.user) {
+      bench.session.isUser = true;
+    }
   break;
 
   default:
