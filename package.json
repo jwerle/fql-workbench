@@ -1,0 +1,30 @@
+{
+  "name": "fql-workbench",
+  "version": "0.1.0",
+  "description": "A FQL Workbench tool",
+  "keywords": [
+    "facebook",
+    "api",
+    "graph",
+    "fql",
+    "workbench"
+  ],
+  "author": "Jospeh Werle <joseph.werle@gmail.com>",
+  "main": "index",
+  "dependencies": {
+    "fbgraph"       : "0.2.5",
+    "repl-console"  : "0.3.x",
+    "request"       : "2.11.x",
+    "utilities"     : "0.0.x",
+    "colors"        : "0.6.0-1",
+    "yamljs"        : "0.1.3"
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jwerle/fql-workbench.git"
+  },
+  "engines": {
+    "node": ">= 0.8.8"
+  }
+}
