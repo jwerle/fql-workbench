@@ -78,9 +78,7 @@ fqlwb.Bench.prototype = utils.mixin({
         'select', 'from', 'where', 'and', 'in', 'like'
       ];
 
-      this.server.console.completions = [
-        'select', 'from', 'where', 'and', 'in', 'like'
-      ];
+      this.server.console.completions = completions;
       this.server.console.completions = this.server.console.completions.concat(completions.map(function(val, i){
         return val.toUpperCase();
       }));
