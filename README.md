@@ -20,7 +20,7 @@ $ fql connect -h/--host [host] -p/--port [port] -i/--id [id] -s/--secret [secret
 
 ### Step 4 - Play
 ```
-fql> select uid, username, first_name, last_name, name, sex, is_app_user from user where uid = :uid;
+fql> SELECT uid, username, first_name, last_name, name, sex, is_app_user FROM user WHERE uid = :uid;
 ... 
 -
   uid: 543985131
@@ -45,11 +45,97 @@ The following aliases are available within the query:
 :me           - If the -U or --user flag was supplied then the value of this variable is the uid supplied by the -u or --uid flag
 ```
 
-This is a convenience so you don't have to keep entering long bits of data over and over
+### Tab Completion 
+There is tab completion too for the support query syntax. Tables are not supported (yet?)
 
-There is tab completion too for the support query syntax. maybe i'll get completion for table names and fields too! 
-
+### Exiting
 You can leave the remote session by simply typing 'exit' or calling it as a function 'exit()'
+```
+Query took 0.081 seconds to execute.
+fql> exit
+Exiting...
+```
+
+### Examples
+
+Query your own data
+```
+fql> SELECT name FROM user WHERE uid = :uid
+... 
+-
+  name: 'Joseph Werle'
+```
+
+Query data about a Facebook page
+```
+fql> SELECT name, page_id, username, description, page_url FROM page WHERE username = 'facebook';
+... 
+-
+  name: Facebook
+  page_id: 20531316728
+  username: facebook
+  description: 
+  page_url: 'http://www.facebook.com/facebook'
+
+Query took 0.103 seconds to execute.
+fql> 
+```
+
+Query app metric data
+```
+fql> SELECT metric, value FROM insights WHERE object_id = :id AND metric = 'application_active_users' AND end_time=end_time_date('2011-06-26') AND period=period('month')
+... 
+-
+  metric: application_active_users
+  value: 434
+
+Query took 0.144 seconds to execute.
+fql> 
+```
+
+```
+fql> SELECT metric, value FROM insights WHERE object_id = :id AND metric = 'application_like_adds' AND end_time=end_time_date('2011-06-26') AND period=period('month')
+... 
+-
+  metric: application_like_adds
+  value: 87
+
+Query took 0.125 seconds to execute.
+fql> 
+```
+
+```
+fql> SELECT metric, value FROM insights WHERE object_id = :id AND metric = 'application_shares' AND end_time=end_time_date('2011-06-26') AND period=period('month')
+... 
+-
+  metric: application_shares
+  value: 94
+
+Query took 0.123 seconds to execute.
+fql> 
+```
+
+```
+fql> SELECT metric, value FROM insights WHERE object_id = :id AND metric = 'page_engaged_users' AND end_time=end_time_date('2011-06-26') AND period=period('month')
+... 
+-
+  metric: page_engaged_users
+  value: 136
+
+Query took 0.125 seonds to execute.
+fql> 
+```
+
+```
+fql> SELECT metric, value FROM insights WHERE object_id = :id AND metric = 'page_consumptions' AND end_time=end_time_date('2011-06-26') AND period=period('month')
+... 
+-
+  metric: page_consumptions
+  value: 2023
+
+Query took 0.13 seconds to execute.
+fql> 
+```
 
 Copyright and license
 ---------------------
