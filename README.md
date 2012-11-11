@@ -54,7 +54,22 @@ The following commands are available at the command line interface
 ```
 
 ### Tab Completion 
-There is tab completion too for the support query syntax. Tables are not supported (yet?)
+There is tab completion for the support query syntax. Tables, fields, permissions coming soon.
+```
+fql> sele
+select 
+fql> select name fr
+from 
+fql> select name from user w
+where 
+fql> select name from user where uid = :uid
+... 
+-
+  name: 'Joseph Werle'
+
+Query took 0.082 seconds to execute.
+fql> 
+```
 
 ### Exiting
 You can leave the remote session by simply typing 'exit' or calling it as a function 'exit()'
