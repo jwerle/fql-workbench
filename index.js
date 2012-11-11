@@ -20,13 +20,14 @@
  @requires utilities
  @requires yaml
 **/
-var Daemon  = require('./lib/daemon').Daemon
-  , Server  = require('./lib/server').Server
-  , Session = require('./lib/fql').Session
-  , tables  = require('./lib/tables')
-  , events  = require('events')
-  , utils   = require('utilities')
-  , yaml    = require('yamljs')
+var Daemon    = require('./lib/daemon').Daemon
+  , Server    = require('./lib/server').Server
+  , Session   = require('./lib/fql').Session
+  , tables    = require('./lib/tables')
+  , functions = require('./lib/functions')
+  , events    = require('events')
+  , utils     = require('utilities')
+  , yaml      = require('yamljs')
 
 var fqlwb = {};
 
@@ -37,7 +38,7 @@ fqlwb.Bench = function(id, secret, port, uid) {
   this.session = new Session(id, secret, uid);
   this.completions = [
     'select', 'from', 'where', 'and', 'in', 'like'
-  ].concat(tables._names);
+  ].concat(tables._names).concat(functions.getNames().map(function(name){ return ':' + name; }));
 };
 
 fqlwb.Bench.prototype = utils.mixin({
@@ -70,8 +71,10 @@ fqlwb.Bench.prototype = utils.mixin({
     if (! this.debug) {
       this.server.console.filters.processBuffer = function(chunk) {
         self.session.connect().ready(function(){
-          self.session.query(chunk).complete(function(data, time){
-            self.writeToSocket(yaml.stringify(data), "Query took ".cyan + time.green + " seconds to execute.".cyan);
+          self.session.query(chunk).complete(function(data, time, isQuery){
+            var msg = "Query took ".cyan + time.green + " seconds to execute.".cyan;
+
+            self.writeToSocket(yaml.stringify(data), isQuery? msg : null);
           });
         });
 
@@ -79,10 +82,12 @@ fqlwb.Bench.prototype = utils.mixin({
       };
     }
 
+    this.server.console.completions = this.completions;
+
     this.scope = utils.mixin(this.scope, {
       $$ : function(query) {
         self.session.query(query).complete(function(data, time){
-          self.writeToSocket(yaml.stringify(data), "Query took ".cyan + time.green + " seconds to execute.".cyan);
+          self.writeToSocket(yaml.stringify(data));
         })
 
         return this;
