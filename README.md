@@ -64,6 +64,41 @@ fql> exit
 Exiting...
 ```
 
+### Using commands
+
+``:print`` 
+```
+fql> :print :uid
+... 
+'543985131'
+
+fql> :print :id
+... 
+'459902834061249'
+
+fql> 
+```
+
+``:desc | :describe``
+```
+fql> :describe insights
+... 
+name: insights
+fields:
+  object_id: { name: object_id, type: { type: int }, indexable: true, description: 'The object for which you are retrieving metrics.' }
+  metric: { name: metric, type: { type: string }, indexable: true, description: 'The usage data to retrieve.' }
+  end_time: { name: end_time, type: { type: int }, indexable: true, description: "The end of the period during which the metrics were collected,\nexpressed as a unix time (which should always be midnight, Pacific Daylight Time)\nor using the function end_time_date() which takes a date string in 'YYYY-MM-DD' format.\nNote: If the unix time provided is not midnight, Pacific Daylight Time, your query may return an empty resultset.\nExample: To obtain data for the 24-hour period starting on September 15th at 00:00 (i.e. 12:00 midnight)\nand ending on September 16th at 00:00 (i.e. 12:00 midnight),\nspecify 1284620400 as the end_time and 86400 as the period.\n\nNote: end_time should not be specified when querying lifetime metrics." }
+  period: { name: period, type: { type: int }, indexable: true, description: "The length of the period during which the metrics were collected,\nexpressed in seconds as one of 86400 (day), 604800 (week),\n2592000 (month) or 0 (lifetime) or using the function period(),\nwhich takes one of the strings day, week, month or lifetime.\n\nNote: Each metric may not have all periods available." }
+  value: { name: value, type: { type: mixed }, indexable: false, description: 'The value of the requested metric.' }
+permissions:
+  - access_token
+  - read_insights
+
+
+fql>
+```
+
+
 ### Examples
 
 Query your own data
