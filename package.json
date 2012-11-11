@@ -12,7 +12,8 @@
   "author": "Jospeh Werle <joseph.werle@gmail.com>",
   "main": "index",
    "bin" : {
-    "fql": "./bin/cli.js"
+    "fql"     : "./bin/fql",
+    "fql-cli" : "./bin/cli.js"
   },
   "dependencies": {
     "fbgraph"       : "0.2.5",
