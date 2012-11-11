@@ -48,9 +48,28 @@ The following aliases are available within the query:
 ### Commands
 The following commands are available at the command line interface
 ```
+:help <command>     - Displays usage on a given command
 :print <string>     - Prints a string to the buffer
 :exit               - Exits the session
 :describe <table>   - Shows a table definition
+```
+
+### Help
+Using :help
+```
+fql> :help
+... 
+':help <command> - Displays usage on a given command'
+
+fql> :help print
+... 
+':print <string> - Prints a string to the buffer'
+
+fql> :help describe
+... 
+':describe <table> - Shows a table definition'
+
+fql> 
 ```
 
 ### Tab Completion 
