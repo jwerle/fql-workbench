@@ -36,12 +36,18 @@ opts = [
   , {full: 'uid', abbr: 'u', args: true}
   , {full: 'port', abbr: 'p', args: true}
   , {full: 'user', abbr: 'U'}
+  , {full: 'version', abbr: 'v'}
 ];
 
 parser = new parseopts.Parser(opts);
 parser.parse(args);
 cmds = parser.cmds;
 opts = parser.opts;
+
+if (opts.version) {
+  console.log(require('../package').version.green)
+  process.exit();
+}
 
 switch (cmds[1]) {
   case 'daemon' :
