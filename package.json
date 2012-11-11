@@ -1,6 +1,6 @@
 {
   "name": "fql-workbench",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "A FQL Workbench tool",
   "keywords": [
     "facebook",
@@ -12,8 +12,7 @@
   "author": "Jospeh Werle <joseph.werle@gmail.com>",
   "main": "index",
    "bin" : {
-    "fql"     : "./bin/fql",
-    "fql-cli" : "./bin/cli.js"
+    "fql" : "./bin/cli.js"
   },
   "dependencies": {
     "fbgraph"       : "0.2.5",
