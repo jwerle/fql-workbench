@@ -19,6 +19,7 @@ $ fql connect -h/--host [host] -p/--port [port] -i/--id [id] -s/--secret [secret
 ```
 
 ### Step 4 - Play
+All output is yaml output.
 ```
 fql> SELECT uid, username, first_name, last_name, name, sex, is_app_user FROM user WHERE uid = :uid;
 ... 
@@ -91,7 +92,13 @@ fql>
 ```
 
 ### Exiting
-You can leave the remote session by simply typing 'exit' or calling it as a function 'exit()'
+You can leave the session in a few ways.
+```
+fql> :exit
+... 
+$
+```
+or
 ```
 Query took 0.081 seconds to execute.
 fql> exit
@@ -113,7 +120,7 @@ fql> :print :id
 fql> 
 ```
 
-``:desc | :describe``
+``:describe`` or ``:desc``
 ```
 fql> :describe insights
 ... 
