@@ -45,6 +45,14 @@ The following aliases are available within the query:
 :me           - If the -U or --user flag was supplied then the value of this variable is the uid supplied by the -u or --uid flag
 ```
 
+### Commands
+The following commands are available at the command line interface
+```
+:print <string>     - Prints a string to the buffer
+:exit               - Exits the session
+:describe <table>   - Shows a table definition
+```
+
 ### Tab Completion 
 There is tab completion too for the support query syntax. Tables are not supported (yet?)
 
@@ -101,39 +109,6 @@ fql> SELECT metric, value FROM insights WHERE object_id = :id AND metric = 'appl
   value: 87
 
 Query took 0.125 seconds to execute.
-fql> 
-```
-
-```
-fql> SELECT metric, value FROM insights WHERE object_id = :id AND metric = 'application_shares' AND end_time=end_time_date('2011-06-26') AND period=period('month')
-... 
--
-  metric: application_shares
-  value: 94
-
-Query took 0.123 seconds to execute.
-fql> 
-```
-
-```
-fql> SELECT metric, value FROM insights WHERE object_id = :id AND metric = 'page_engaged_users' AND end_time=end_time_date('2011-06-26') AND period=period('month')
-... 
--
-  metric: page_engaged_users
-  value: 136
-
-Query took 0.125 seonds to execute.
-fql> 
-```
-
-```
-fql> SELECT metric, value FROM insights WHERE object_id = :id AND metric = 'page_consumptions' AND end_time=end_time_date('2011-06-26') AND period=period('month')
-... 
--
-  metric: page_consumptions
-  value: 2023
-
-Query took 0.13 seconds to execute.
 fql> 
 ```
 
