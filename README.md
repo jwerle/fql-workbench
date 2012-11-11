@@ -89,6 +89,21 @@ Query took 0.103 seconds to execute.
 fql> 
 ```
 
+Multi Query
+```
+fql>  #user select uid, username, name, first_name, last_name from user where uid = :uid; #profile select uid, username, name from #user
+... 
+-
+  name: user
+  fql_result_set: [{ uid: 543985131, username: joseph.werle, name: 'Joseph Werle', first_name: Joseph, last_name: Werle }]
+-
+  name: profile
+  fql_result_set: [{ uid: 543985131, username: joseph.werle, name: 'Joseph Werle' }]
+
+Query took 0.08 seconds to execute.
+fql>
+```
+
 Query app metric data
 ```
 fql> SELECT metric, value FROM insights WHERE object_id = :id AND metric = 'application_active_users' AND end_time=end_time_date('2011-06-26') AND period=period('month')
