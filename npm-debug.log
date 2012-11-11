@@ -1,0 +1,136 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'publish' ]
+2 info using npm@1.1.65
+3 info using node@v0.8.8
+4 verbose publish [ '.' ]
+5 verbose read json /home/joseph/repos/fql-workbench/package.json
+6 verbose cache add [ '.', null ]
+7 silly cache add name=undefined spec="." args=[".",null]
+8 verbose parsed url { pathname: '.', path: '.', href: '.' }
+9 silly lockFile 3a52ce78- .
+10 verbose lock . /home/joseph/.npm/3a52ce78-.lock
+11 verbose read json package.json
+12 verbose tar pack [ '/home/joseph/tmp/npm-24404/1352651854791-0.7529495563358068/tmp.tgz',
+12 verbose tar pack   '.' ]
+13 verbose tarball /home/joseph/tmp/npm-24404/1352651854791-0.7529495563358068/tmp.tgz
+14 verbose folder .
+15 info prepublish fql-workbench@0.2.3
+16 silly lockFile 2f073622-54791-0-7529495563358068-tmp-tgz /home/joseph/tmp/npm-24404/1352651854791-0.7529495563358068/tmp.tgz
+17 verbose lock /home/joseph/tmp/npm-24404/1352651854791-0.7529495563358068/tmp.tgz /home/joseph/.npm/2f073622-54791-0-7529495563358068-tmp-tgz.lock
+18 silly lockFile 2f073622-54791-0-7529495563358068-tmp-tgz /home/joseph/tmp/npm-24404/1352651854791-0.7529495563358068/tmp.tgz
+19 verbose tar unpack /home/joseph/tmp/npm-24404/1352651854791-0.7529495563358068/tmp.tgz
+20 silly lockFile 503c6193-54791-0-7529495563358068-package /home/joseph/tmp/npm-24404/1352651854791-0.7529495563358068/package
+21 verbose lock /home/joseph/tmp/npm-24404/1352651854791-0.7529495563358068/package /home/joseph/.npm/503c6193-54791-0-7529495563358068-package.lock
+22 silly gunzTarPerm modes [ '755', '644' ]
+23 silly gunzTarPerm extractEntry package.json
+24 silly gunzTarPerm extractEntry .npmignore
+25 silly gunzTarPerm extractEntry README.md
+26 silly gunzTarPerm extractEntry index.js
+27 silly gunzTarPerm extractEntry deps/parseopts.js
+28 silly gunzTarPerm extractEntry bin/cli.js
+29 silly gunzTarPerm modified mode [ 'bin/cli.js', 504, 492 ]
+30 silly gunzTarPerm extractEntry lib/field.js
+31 silly gunzTarPerm extractEntry lib/daemon.js
+32 silly gunzTarPerm extractEntry lib/functions.js
+33 silly gunzTarPerm extractEntry lib/fql.js
+34 silly gunzTarPerm extractEntry lib/table.js
+35 silly gunzTarPerm extractEntry lib/export.js
+36 silly gunzTarPerm extractEntry lib/server.js
+37 silly gunzTarPerm extractEntry lib/type.js
+38 silly gunzTarPerm extractEntry lib/schema.js
+39 silly gunzTarPerm extractEntry lib/tables/insights.js
+40 silly gunzTarPerm extractEntry lib/tables/index.js
+41 silly gunzTarPerm extractEntry lib/tables/_permissions.js
+42 silly gunzTarPerm extractEntry lib/tables/_import.js
+43 verbose read json /home/joseph/tmp/npm-24404/1352651854791-0.7529495563358068/package/package.json
+44 silly lockFile 503c6193-54791-0-7529495563358068-package /home/joseph/tmp/npm-24404/1352651854791-0.7529495563358068/package
+45 verbose from cache /home/joseph/tmp/npm-24404/1352651854791-0.7529495563358068/package/package.json
+46 verbose tar pack [ '/home/joseph/.npm/fql-workbench/0.2.3/package.tgz',
+46 verbose tar pack   '/home/joseph/tmp/npm-24404/1352651854791-0.7529495563358068/package' ]
+47 verbose tarball /home/joseph/.npm/fql-workbench/0.2.3/package.tgz
+48 verbose folder /home/joseph/tmp/npm-24404/1352651854791-0.7529495563358068/package
+49 silly lockFile 67ed3f5e--fql-workbench-0-2-3-package-tgz /home/joseph/.npm/fql-workbench/0.2.3/package.tgz
+50 verbose lock /home/joseph/.npm/fql-workbench/0.2.3/package.tgz /home/joseph/.npm/67ed3f5e--fql-workbench-0-2-3-package-tgz.lock
+51 silly lockFile 67ed3f5e--fql-workbench-0-2-3-package-tgz /home/joseph/.npm/fql-workbench/0.2.3/package.tgz
+52 silly lockFile ab3e3898--npm-fql-workbench-0-2-3-package /home/joseph/.npm/fql-workbench/0.2.3/package
+53 verbose lock /home/joseph/.npm/fql-workbench/0.2.3/package /home/joseph/.npm/ab3e3898--npm-fql-workbench-0-2-3-package.lock
+54 silly lockFile ab3e3898--npm-fql-workbench-0-2-3-package /home/joseph/.npm/fql-workbench/0.2.3/package
+55 verbose tar unpack /home/joseph/.npm/fql-workbench/0.2.3/package.tgz
+56 silly lockFile ab3e3898--npm-fql-workbench-0-2-3-package /home/joseph/.npm/fql-workbench/0.2.3/package
+57 verbose lock /home/joseph/.npm/fql-workbench/0.2.3/package /home/joseph/.npm/ab3e3898--npm-fql-workbench-0-2-3-package.lock
+58 silly gunzTarPerm modes [ '755', '644' ]
+59 silly gunzTarPerm extractEntry package.json
+60 silly gunzTarPerm extractEntry .npmignore
+61 silly gunzTarPerm extractEntry README.md
+62 silly gunzTarPerm extractEntry index.js
+63 silly gunzTarPerm extractEntry deps/parseopts.js
+64 silly gunzTarPerm extractEntry bin/cli.js
+65 silly gunzTarPerm extractEntry lib/field.js
+66 silly gunzTarPerm extractEntry lib/daemon.js
+67 silly gunzTarPerm extractEntry lib/functions.js
+68 silly gunzTarPerm extractEntry lib/fql.js
+69 silly gunzTarPerm extractEntry lib/table.js
+70 silly gunzTarPerm extractEntry lib/export.js
+71 silly gunzTarPerm extractEntry lib/server.js
+72 silly gunzTarPerm extractEntry lib/type.js
+73 silly gunzTarPerm extractEntry lib/schema.js
+74 silly gunzTarPerm extractEntry lib/tables/insights.js
+75 silly gunzTarPerm extractEntry lib/tables/index.js
+76 silly gunzTarPerm extractEntry lib/tables/_permissions.js
+77 silly gunzTarPerm extractEntry lib/tables/_import.js
+78 verbose read json /home/joseph/.npm/fql-workbench/0.2.3/package/package.json
+79 silly lockFile ab3e3898--npm-fql-workbench-0-2-3-package /home/joseph/.npm/fql-workbench/0.2.3/package
+80 silly shasum updated bytes 11984
+81 info shasum beec3e99062f9d9c34f9334a7247cdcfc28d28de
+81 info shasum /home/joseph/.npm/fql-workbench/0.2.3/package.tgz
+82 verbose from cache /home/joseph/.npm/fql-workbench/0.2.3/package/package.json
+83 verbose chmod /home/joseph/.npm/fql-workbench/0.2.3/package.tgz 644
+84 verbose chown /home/joseph/.npm/fql-workbench/0.2.3/package.tgz [ 1001, 1003 ]
+85 silly lockFile 3a52ce78- .
+86 silly publish { name: 'fql-workbench',
+86 silly publish   version: '0.2.3',
+86 silly publish   description: 'A FQL Workbench tool',
+86 silly publish   keywords: [ 'facebook', 'api', 'graph', 'fql', 'workbench' ],
+86 silly publish   author: { name: 'Jospeh Werle', email: 'joseph.werle@gmail.com' },
+86 silly publish   main: 'index',
+86 silly publish   bin: { fql: './bin/fql', 'fql-cli': './bin/cli.js' },
+86 silly publish   dependencies:
+86 silly publish    { fbgraph: '0.2.5',
+86 silly publish      'repl-console': '>=0.4.5',
+86 silly publish      request: '2.11.x',
+86 silly publish      utilities: '0.0.x',
+86 silly publish      colors: '0.6.0-1',
+86 silly publish      yamljs: '0.1.3',
+86 silly publish      jsdom: '0.2.x',
+86 silly publish      jquery: '1.7.x' },
+86 silly publish   repository:
+86 silly publish    { type: 'git',
+86 silly publish      url: 'git://github.com/jwerle/fql-workbench.git' },
+86 silly publish   engines: { node: '>= 0.8.8' },
+86 silly publish   readme: 'FQLWorkbench\n============\n\n#### A workbench for Facebook\'s FQL\n\n### Step 1 - Install\n```\n$ sudo npm install fql-workbench -g\n```\n\n### Step 2 - Start the daemon\n```\n$ fql daemon\n```\n\n### Step 3 - Connect (Local/remote)\n```\n$ fql connect -h/--host [host] -p/--port [port] -i/--id [id] -s/--secret [secret] -u/--uid [uid] (optional) -U/--user (optional)\n```\n\n### Step 4 - Play\nAll output is yaml output.\n```\nfql> SELECT uid, username, first_name, last_name, name, sex, is_app_user FROM user WHERE uid = :uid;\n... \n-\n  uid: 543985131\n  username: joseph.werle\n  first_name: Joseph\n  last_name: Werle\n  name: \'Joseph Werle\'\n  sex: male\n  is_app_user: false\n\nQuery took 0.087 seconds to execute.\nfql>\n```\n\n### Aliases\nThe following aliases are available within the query:\n```\n:id           - App ID\n:secret       - App Secret\n:accessToken  - The access token generated by the app id and secret\n:uid          - The UID supplied by the -u or --uid flag.\n:me           - If the -U or --user flag was supplied then the value of this variable is the uid supplied by the -u or --uid flag\n```\n\n### Commands\nThe following commands are available at the command line interface\n```\n:help <command>     - Displays usage on a given command\n:print <string>     - Prints a string to the buffer\n:exit               - Exits the session\n:describe <table>   - Shows a table definition\n```\n\n### Help\nUsing :help\n```\nfql> :help\n... \n\':help <command> - Displays usage on a given command\'\n\nfql> :help print\n... \n\':print <string> - Prints a string to the buffer\'\n\nfql> :help describe\n... \n\':describe <table> - Shows a table definition\'\n\nfql> \n```\n\n### Tab Completion \nThere is tab completion for the support query syntax. Tables, fields, permissions coming soon.\n```\nfql> sele\nselect \nfql> select name fr\nfrom \nfql> select name from user w\nwhere \nfql> select name from user where uid = :uid\n... \n-\n  name: \'Joseph Werle\'\n\nQuery took 0.082 seconds to execute.\nfql> \n```\n\n### Exiting\nYou can leave the session in a few ways.\n```\nfql> :exit\n... \n$\n```\nor\n```\nQuery took 0.081 seconds to execute.\nfql> exit\nExiting...\n```\n\n### Using commands\n\n``:print`` \n```\nfql> :print :uid\n... \n\'543985131\'\n\nfql> :print :id\n... \n\'459902834061249\'\n\nfql> \n```\n\n``:describe`` or ``:desc``\n```\nfql> :describe insights\n... \nname: insights\nfields:\n  object_id: { name: object_id, type: { type: int }, indexable: true, description: \'The object for which you are retrieving metrics.\' }\n  metric: { name: metric, type: { type: string }, indexable: true, description: \'The usage data to retrieve.\' }\n  end_time: { name: end_time, type: { type: int }, indexable: true, description: "The end of the period during which the metrics were collected,\\nexpressed as a unix time (which should always be midnight, Pacific Daylight Time)\\nor using the function end_time_date() which takes a date string in \'YYYY-MM-DD\' format.\\nNote: If the unix time provided is not midnight, Pacific Daylight Time, your query may return an empty resultset.\\nExample: To obtain data for the 24-hour period starting on September 15th at 00:00 (i.e. 12:00 midnight)\\nand ending on September 16th at 00:00 (i.e. 12:00 midnight),\\nspecify 1284620400 as the end_time and 86400 as the period.\\n\\nNote: end_time should not be specified when querying lifetime metrics." }\n  period: { name: period, type: { type: int }, indexable: true, description: "The length of the period during which the metrics were collected,\\nexpressed in seconds as one of 86400 (day), 604800 (week),\\n2592000 (month) or 0 (lifetime) or using the function period(),\\nwhich takes one of the strings day, week, month or lifetime.\\n\\nNote: Each metric may not have all periods available." }\n  value: { name: value, type: { type: mixed }, indexable: false, description: \'The value of the requested metric.\' }\npermissions:\n  - access_token\n  - read_insights\n\n\nfql>\n```\n\n\n### Examples\n\nQuery your own data\n```\nfql> SELECT name FROM user WHERE uid = :uid\n... \n-\n  name: \'Joseph Werle\'\n```\n\nQuery data about a Facebook page\n```\nfql> SELECT name, page_id, username, description, page_url FROM page WHERE username = \'facebook\';\n... \n-\n  name: Facebook\n  page_id: 20531316728\n  username: facebook\n  description: \n  page_url: \'http://www.facebook.com/facebook\'\n\nQuery took 0.103 seconds to execute.\nfql> \n```\n\nMulti Query\n```\nfql>  #user SELECT uid, username, name, first_name, last_name FROM user WHERE uid = :uid; #profile SELECT uid, username, name FROM #user\n... \n-\n  name: user\n  fql_result_set: [{ uid: 543985131, username: joseph.werle, name: \'Joseph Werle\', first_name: Joseph, last_name: Werle }]\n-\n  name: profile\n  fql_result_set: [{ uid: 543985131, username: joseph.werle, name: \'Joseph Werle\' }]\n\nQuery took 0.08 seconds to execute.\nfql>\n```\n\nQuery app metric data\n```\nfql> SELECT metric, value FROM insights WHERE object_id = :id AND metric = \'application_active_users\' AND end_time=end_time_date(\'2011-06-26\') AND period=period(\'month\')\n... \n-\n  metric: application_active_users\n  value: 434\n\nQuery took 0.144 seconds to execute.\nfql> \n```\n\n```\nfql> SELECT metric, value FROM insights WHERE object_id = :id AND metric = \'application_like_adds\' AND end_time=end_time_date(\'2011-06-26\') AND period=period(\'month\')\n... \n-\n  metric: application_like_adds\n  value: 87\n\nQuery took 0.125 seconds to execute.\nfql> \n```\n\nCopyright and license\n---------------------\n\nCopyright 2012\n\nLicensed under the Apache License, Version 2.0 (the "License");\nyou may not use this work except in compliance with the License.\nYou may obtain a copy of the License in the LICENSE file, or at:\n\n   http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an "AS IS" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n\n- - -\nfql-workbench copyright 2012\njoseph.werle@gmail.com',
+86 silly publish   readmeFilename: 'README.md',
+86 silly publish   _id: 'fql-workbench@0.2.3',
+86 silly publish   dist: { shasum: 'beec3e99062f9d9c34f9334a7247cdcfc28d28de' } }
+87 verbose url raw fql-workbench
+88 verbose url resolving [ 'https://registry.npmjs.org/', './fql-workbench' ]
+89 verbose url resolved https://registry.npmjs.org/fql-workbench
+90 info trying registry request attempt 1 at 16:37:35
+91 http PUT https://registry.npmjs.org/fql-workbench
+92 http 409 https://registry.npmjs.org/fql-workbench
+93 verbose url raw fql-workbench
+94 verbose url resolving [ 'https://registry.npmjs.org/', './fql-workbench' ]
+95 verbose url resolved https://registry.npmjs.org/fql-workbench
+96 info trying registry request attempt 1 at 16:37:35
+97 http GET https://registry.npmjs.org/fql-workbench
+98 http 200 https://registry.npmjs.org/fql-workbench
+99 error publish fail Cannot publish over existing version.
+99 error publish fail Bump the 'version' field, set the --force flag, or
+99 error publish fail     npm unpublish 'fql-workbench@0.2.3'
+99 error publish fail and try again
+100 error System Linux 3.2.0-32-virtual
+101 error command "node" "/usr/local/bin/npm" "publish"
+102 error cwd /home/joseph/repos/fql-workbench
+103 error node -v v0.8.8
+104 error npm -v 1.1.65
+105 error code EPUBLISHCONFLICT
+106 verbose exit [ 1, true ]
