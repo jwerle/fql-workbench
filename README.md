@@ -91,7 +91,7 @@ fql>
 
 Multi Query
 ```
-fql>  #user select uid, username, name, first_name, last_name from user where uid = :uid; #profile select uid, username, name from #user
+fql>  #user SELECT uid, username, name, first_name, last_name FROM user WHERE uid = :uid; #profile SELECT uid, username, name FROM #user
 ... 
 -
   name: user
