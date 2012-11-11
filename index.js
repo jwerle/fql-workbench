@@ -23,9 +23,10 @@
 var Daemon  = require('./lib/daemon').Daemon
   , Server  = require('./lib/server').Server
   , Session = require('./lib/fql').Session
+  , tables  = require('./lib/tables')
   , events  = require('events')
   , utils   = require('utilities')
-  , yaml    = require('yamljs');
+  , yaml    = require('yamljs')
 
 var fqlwb = {};
 
@@ -34,6 +35,9 @@ fqlwb.Bench = function(id, secret, port, uid) {
   this.server = null;
   this.daemon = null;
   this.session = new Session(id, secret, uid);
+  this.completions = [
+    'select', 'from', 'where', 'and', 'in', 'like'
+  ].concat(tables._names);
 };
 
 fqlwb.Bench.prototype = utils.mixin({
@@ -73,15 +77,6 @@ fqlwb.Bench.prototype = utils.mixin({
 
         return chunk;
       };
-
-      var completions = [
-        'select', 'from', 'where', 'and', 'in', 'like'
-      ];
-
-      this.server.console.completions = completions;
-      this.server.console.completions = this.server.console.completions.concat(completions.map(function(val, i){
-        return val.toUpperCase();
-      }));
     }
 
     this.scope = utils.mixin(this.scope, {
