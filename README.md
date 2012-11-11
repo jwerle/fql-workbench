@@ -120,6 +120,83 @@ fql> :print :id
 fql> 
 ```
 
+``:show tables``
+```
+fql> :show tables
+... Fetching tables from http://developers.facebook.com/docs/reference/fql/
+
+tables:
+  - album
+  - application
+  - apprequest
+  - checkin
+  - comment
+  - comments_info
+  - connection
+  - cookies
+  - developer
+  - domain
+  - domain_admin
+  - event
+  - event_member
+  - family
+  - friend
+  - friend_request
+  - friendlist
+  - friendlist_member
+  - group
+  - group_member
+  - insights
+  - like
+  - link
+  - link_stat
+  - location_post
+  - mailbox_folder
+  - message
+  - note
+  - notification
+  - object_url
+  - offer
+  - page
+  - page_admin
+  - page_blocked_user
+  - page_fan
+  - page_global_brand_child
+  - page_milestone
+  - permissions
+  - permissions_info
+  - photo
+  - photo_src
+  - photo_tag
+  - place
+  - privacy
+  - privacy_setting
+  - profile
+  - profile_pic
+  - profile_view
+  - question
+  - question_option
+  - question_option_votes
+  - review
+  - standard_friend_info
+  - standard_user_info
+  - status
+  - stream
+  - stream_filter
+  - stream_tag
+  - subscription
+  - thread
+  - translation
+  - unified_message
+  - unified_thread
+  - unified_thread_action
+  - unified_thread_count
+  - url_like
+  - user
+  - video
+  - video_tag
+```
+
 ``:describe`` or ``:desc``
 ```
 fql> :describe insights
@@ -134,11 +211,169 @@ fields:
 permissions:
   - access_token
   - read_insights
-
-
-fql>
 ```
 
+Filter the output of a :describe call
+```
+fql> :desc user perms
+... Fetching table definition for user http://developers.facebook.com/docs/reference/fql/user
+
+name: user
+permissions:
+  - user_likes
+  - user_education_history
+  - user_work_history
+  - user_religion_politics
+  - user_about_me
+  - user_notes
+  - user_status
+  - user_online_presence
+  - email
+  - user_birthday
+  - user_hometown
+  - user_relationships
+  - user_relationship_details
+  - user_activities
+  - user_interests
+  - user_location
+  - user_website
+```
+
+Filter user table to show fields and filter the output to only show the type
+```
+fql> :desc user fields:type
+... Fetching table definition for user http://developers.facebook.com/docs/reference/fql/user
+
+name: user
+fields:
+  uid: int
+  username: string
+  first_name: string
+  middle_name: string
+  last_name: string
+  name: string
+  pic_small: string
+  pic_big: string
+  pic_square: string
+  pic: string
+  affiliations: array
+  profile_update_time: time
+  timezone: int
+  religion: string
+  birthday: string
+  birthday_date: string
+  devices: array
+  sex: string
+  hometown_location: array
+  meeting_sex: array
+  meeting_for: array
+  relationship_status: string
+  significant_other_id: uid
+  political: string
+  current_location: array
+  activities: string
+  interests: string
+  is_app_user: bool
+  music: string
+  tv: string
+  movies: string
+  books: string
+  quotes: string
+  about_me: string
+  hs_info: array
+  education_history: array
+  work_history: array
+  notes_count: int
+  wall_count: int
+  status: string
+  has_added_app: bool
+  online_presence: string
+  locale: string
+  proxied_email: string
+  profile_url: string
+  email_hashes: array
+  pic_small_with_logo: string
+  pic_big_with_logo: string
+  pic_square_with_logo: string
+  pic_with_logo: string
+  pic_cover: array
+  allowed_restrictions: string
+  verified: bool
+  profile_blurb: string
+  family: array
+  website: string
+  is_blocked: bool
+  contact_email: string
+  email: string
+  third_party_id: string
+  name_format: string
+  video_upload_limits: array
+  games: string
+  work: array
+  education: array
+  sports: array
+  favorite_athletes: array
+  favorite_teams: array
+  inspirational_people: array
+  languages: array
+  likes_count: int
+  friend_count: int
+  mutual_friend_count: int
+  can_post: bool
+```
+
+Describing a single field in a table
+```
+fql> :describe insights field:metric
+... 
+name: insights
+fields:
+  metric: { name: metric, type: { type: string }, indexable: true, description: 'The usage data to retrieve.' }
+```
+
+Filtering meta information on a field
+```
+fql> :describe insights field:metric.description
+... 
+name: insights
+fields:
+  metric: 'The usage data to retrieve.'
+
+fql> :describe insights field:metric.type
+... 
+name: insights
+fields:
+  metric: { type: string }
+
+fql> desc user field:username.type,username.name,username.description,pic.type
+... 
+name: user
+fields:
+  username: [{ type: string }, username, 'The username of the user being queried.']
+  pic: [{ type: string }]
+  
+```
+
+Describing tables that do not exist
+```
+fql> :desc like
+... Fetching table definition for like http://developers.facebook.com/docs/reference/fql/like
+
+- 'Unsupported table.'
+```
+
+Getting more output from a filter
+```
+fql> :desc insights fields:type,description
+... 
+name: insights
+fields:
+  object_id: { type: int, description: '''The object for which you are retrieving metrics.''' }
+  metric: { type: string, description: '''The usage data to retrieve.''' }
+  end_time: { type: int, description: '"The end of the period during which the metrics were collected,\nexpressed as a unix time (which should always be midnight, Pacific Daylight Time)\nor using the function end_time_date() which takes a date string in ''YYYY-MM-DD'' format.\nNote: If the unix time provided is not midnight, Pacific Daylight Time, your query may return an empty resultset.\nExample: To obtain data for the 24-hour period starting on September 15th at 00:00 (i.e. 12:00 midnight)\nand ending on September 16th at 00:00 (i.e. 12:00 midnight),\nspecify 1284620400 as the end_time and 86400 as the period.\n\nNote: end_time should not be specified when querying lifetime metrics."' }
+  period: { type: int, description: '"The length of the period during which the metrics were collected,\nexpressed in seconds as one of 86400 (day), 604800 (week),\n2592000 (month) or 0 (lifetime) or using the function period(),\nwhich takes one of the strings day, week, month or lifetime.\n\nNote: Each metric may not have all periods available."' }
+  value: { type: mixed, description: '''The value of the requested metric.''' }
+```
 
 ### Examples
 
@@ -163,6 +398,87 @@ fql> SELECT name, page_id, username, description, page_url FROM page WHERE usern
 
 Query took 0.103 seconds to execute.
 fql> 
+```
+
+SELECT *
+```
+fql> select * from user where uid = :uid
+... 
+-
+  uid: 543985131
+  username: joseph.werle
+  first_name: Joseph
+  middle_name: 
+  last_name: Werle
+  name: 'Joseph Werle'
+  pic_small: 'http://profile.ak.fbcdn.net/hprofile-ak-ash4/273334_543985131_475654434_t.jpg'
+  pic_big: 'http://profile.ak.fbcdn.net/hprofile-ak-ash4/273334_543985131_475654434_n.jpg'
+  pic_square: 'http://profile.ak.fbcdn.net/hprofile-ak-ash4/273334_543985131_475654434_q.jpg'
+  pic: 'http://profile.ak.fbcdn.net/hprofile-ak-ash4/273334_543985131_475654434_s.jpg'
+  affiliations: []
+  profile_update_time: null
+  timezone: null
+  religion: null
+  birthday: null
+  birthday_date: null
+  devices: null
+  sex: male
+  hometown_location: null
+  meeting_sex: null
+  meeting_for: null
+  relationship_status: null
+  significant_other_id: null
+  political: null
+  current_location: null
+  activities: 
+  interests: 
+  is_app_user: false
+  music: 
+  tv: 
+  movies: 
+  books: 
+  quotes: null
+  about_me: null
+  hs_info: null
+  education_history: []
+  work_history: []
+  notes_count: null
+  wall_count: null
+  status: null
+  has_added_app: false
+  online_presence: null
+  locale: en_US
+  proxied_email: null
+  profile_url: null
+  email_hashes: []
+  pic_small_with_logo: 'http://external.ak.fbcdn.net/safe_image.php?d=AQBqN7ykEVtkBj8a&url=http%3A%2F%2Fprofile.ak.fbcdn.net%2Fhprofile-ak-ash4%2F273334_543985131_475654434_t.jpg&logo&v=5'
+  pic_big_with_logo: 'http://external.ak.fbcdn.net/safe_image.php?d=AQCJdVZedb1KWG1D&url=http%3A%2F%2Fprofile.ak.fbcdn.net%2Fhprofile-ak-ash4%2F273334_543985131_475654434_n.jpg&logo&v=5'
+  pic_square_with_logo: 'http://external.ak.fbcdn.net/safe_image.php?d=AQDy8oj7Jkur4m27&url=http%3A%2F%2Fprofile.ak.fbcdn.net%2Fhprofile-ak-ash4%2F273334_543985131_475654434_q.jpg&logo&v=5'
+  pic_with_logo: 'http://external.ak.fbcdn.net/safe_image.php?d=AQBLIlCy5KXvtmFo&url=http%3A%2F%2Fprofile.ak.fbcdn.net%2Fhprofile-ak-ash4%2F273334_543985131_475654434_s.jpg&logo&v=5'
+  pic_cover: null
+  allowed_restrictions: null
+  verified: null
+  profile_blurb: null
+  family: []
+  website: null
+  is_blocked: null
+  contact_email: null
+  email: null
+  third_party_id: GmFMcou46KWeiU_Kg4ByPNQODS8
+  name_format: '{first} {last}'
+  video_upload_limits: null
+  games: 
+  work: []
+  education: []
+  sports: []
+  favorite_athletes: []
+  favorite_teams: []
+  inspirational_people: []
+  languages: []
+  likes_count: null
+  friend_count: null
+  mutual_friend_count: null
+  can_post: false
 ```
 
 Multi Query
