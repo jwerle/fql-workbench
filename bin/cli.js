@@ -24,6 +24,7 @@ var parseopts   = require('../deps/parseopts')
   , cmds
   , parser
   , bench
+  , preventSync = false
 
 
 var cli = {}
@@ -37,6 +38,7 @@ opts = [
   , {full: 'port', abbr: 'p', args: true}
   , {full: 'user', abbr: 'U'}
   , {full: 'version', abbr: 'v'}
+  , {full: 'prevent-sync', abbr: 'ps'}
 ];
 
 parser = new parseopts.Parser(opts);
@@ -51,7 +53,7 @@ if (opts.version) {
 
 switch (cmds[1]) {
   case 'daemon' :
-    console.log("Creating FQL Workbench Daemon");
+    console.log("Starting FQL Workbench Daemon");
     bench = new Bench(false, false, opts.port);
 
     bench.createDaemon().initDaemon();
@@ -66,7 +68,11 @@ switch (cmds[1]) {
       bench.debug = true;
     }
 
-    bench.connect(opts.host);
+    if (opts['prevent-sync']) {
+      preventSync = true;;
+    }
+
+    bench.connect(opts.host, preventSync);
 
     if (opts.user) {
       bench.session.isUser = true;

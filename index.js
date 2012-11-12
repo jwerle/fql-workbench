@@ -29,6 +29,7 @@ var Daemon    = require('./lib/daemon').Daemon
   , events    = require('events')
   , utils     = require('utilities')
   , yaml      = require('yamljs')
+  , noop      = function(){}
 
 var fqlwb = {};
 
@@ -39,73 +40,21 @@ fqlwb.Bench = function(id, secret, port, uid) {
   this.server = null;
   this.daemon = null;
   this.completions = [
-    'select', 'from', 'where', 'and', 'in', 'like'
-  ].concat(tables._names)
-   .concat(functions.getArguments())
-   .concat(functions.getNames().map(function(name){ return ':' + name; }));
+      'select', 'from', 'where', 'and', 'in', 'like' // Syntax
+  ].concat([
+      'id', 'secret', 'port', 'uid'
+  ].map(function(v){ return ':' + v; }))
+  .concat(tables._names).concat(functions.getArguments())
+  .concat(functions.getNames().map(function(name){ return ':' + name; }));
   
   this.session = new Session(id, secret, uid, this.completions);
-  this.session.setBench(this);
-
-  console.log("Reading tables..".green);
-  _import.getTables().done(function(tables){
-    console.log("Got tables!".cyan)
-    var i = 0, table, gotFields = false
-
-    self.tables = tables.tables;
-
-    tables = [].concat(self.tables); // Kill ref
-
-    self.completions = self.completions.concat(tables);
-
-    console.log("Reading fields..".green)
-
-    function getFields(fields, permissions, table){
-      var i, names = []
-
-      tables.shift();
-
-      if (gotFields) {
-        return;
-      }
-
-      if (fields) {
-        for (i = 0; i < fields.length; i++) {
-          names.push([table, '.', fields[i].name].join(''))
-          names.push(fields[i].name)
-        }
-
-        self.completions = self.completions.concat(names);
-      }
-      else {
-        importFields();
-        return;
-      }
-
-      if (! tables.length) {
-        gotFields = true;
-        console.log("Got fields!".cyan);
-        
-        setTimeout(function(){ 
-          self.sanitizeCompletions().propagateCompletions().resetPrompt();
-        }, 50);
-      }
-
-      importFields();
-    }
-
-    function importFields(){
-      if (tables.length) {
-        _import.getTableDefinition(tables[0]).done(getFields);
-      }
-    }
-
-    importFields();
-    
-  });
-
   this.scope.id = id;
   this.scope.secret = secret;
+
+
+  this.session.setBench(this);
+
+  this.sanitizeCompletions().propagateCompletions().sanitizeCompletions().propagateCompletions();
 };
 
 fqlwb.Bench.prototype = utils.mixin({
@@ -124,16 +73,74 @@ fqlwb.Bench.prototype = utils.mixin({
     this.emit('daemon.init');
 
     this.daemon.console.context = utils.mixin(utils.mixin(this.daemon.console.context, this.scope), this);
-    this.session.connect();
-    this.emit('session.connect');
 
     return this;
   },
 
-  connect : function(host) {
+  connect : function(host, preventImport) {
     var self = this
 
     this.server = new Server('fql', this.port);
+
+    if (preventImport !== true) {
+      console.log("Reading tables..".green);
+      _import.getTables().done(function(tables){
+        console.log("Got tables!".cyan)
+        var i = 0, table, gotFields = false
+
+        self.tables = tables.tables;
+
+        tables = [].concat(self.tables); // Kill ref
+
+        self.completions = self.completions.concat(tables);
+
+        console.log("Reading fields..".green)
+
+        function getFields(fields, permissions, table){
+          var i, names = []
+
+          tables.shift();
+
+          if (gotFields) {
+            return;
+          }
+
+          if (fields) {
+            for (i = 0; i < fields.length; i++) {
+              names.push([table, '.', fields[i].name].join(''))
+              names.push(fields[i].name)
+            }
+
+            self.completions = self.completions.concat(names);
+          }
+          else {
+            importFields();
+            return;
+          }
+
+          if (! tables.length) {
+            gotFields = true;
+            console.log("Got fields!".cyan);
+            
+            setTimeout(function(){ 
+              self.sanitizeCompletions().propagateCompletions().resetPrompt();
+            }, 50);
+          }
+
+          importFields();
+        }
+
+        function importFields(){
+          if (tables.length) {
+            _import.getTableDefinition(tables[0]).done(getFields);
+          }
+        }
+
+        importFields();
+        
+      });
+    }
+
 
     if (! this.debug) {
       this.server.console.filters.processBuffer = function(chunk) {
@@ -174,12 +181,12 @@ fqlwb.Bench.prototype = utils.mixin({
 
     if (server && server.console && server.console.socket) {
       server.console.socket.write('\n' + data +'\n');
-      server.console.socket.write(server.console.sig);
+      server.console.socket.write(server.console.prompt);
     }
     else {
       process.stdout.write('\n' + data +'\n');
       process.stdout.write((yield || "") + '\n');
-      process.stdout.write(server.console.sig);
+      process.stdout.write(server.console.prompt);
     }
 
     return this;
@@ -196,7 +203,7 @@ fqlwb.Bench.prototype = utils.mixin({
   resetPrompt : function() {
     var server = this.getServer();
 
-    process.stdout.write('\n' + server.console.sig);
+    process.stdout.write('\n' + server.console.prompt);
 
     return this;
   },
@@ -215,14 +222,16 @@ fqlwb.Bench.prototype = utils.mixin({
   },
 
   propagateCompletions : function() {
-    this.session.completions      = this.completions;
-    
+    this.session.completions = this.sanitizeCompletions.call(this.session)
+                                .completions.concat(this.completions).filter(noop)
+                                .concat(this.sanitizeCompletions.call(this.session).completions)
+
     if (typeof this.server === 'object' && this.server !== null) {
-      this.server.console.completions = this.completions;
+      this.server.console.completions = this.server.console.completions.concat(this.session.completions);
     }
 
     if (typeof this.daemon === 'object' && this.daemon !== null) {
-      this.daemon.console.completions = this.completions;
+      this.daemon.console.completions = this.daemon.console.completions.concat(this.session.completions);
     }
 
     return this;
