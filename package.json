@@ -1,6 +1,6 @@
 {
   "name": "fql-workbench",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A FQL Workbench tool",
   "keywords": [
     "facebook",
