@@ -39,6 +39,7 @@ opts = [
   , {full: 'user', abbr: 'U'}
   , {full: 'version', abbr: 'v'}
   , {full: 'prevent-sync', abbr: 'ps'}
+  , {full: 'file', abbr: 'f', args:true}
 ];
 
 parser = new parseopts.Parser(opts);
@@ -60,8 +61,6 @@ switch (cmds[1]) {
   break;
 
   case 'connect' :
-    console.log("Connecting to daemon..");
-
     bench = new Bench(opts.id, opts.secret, opts.port, opts.uid);
 
     if (opts.debug) {
@@ -72,11 +71,17 @@ switch (cmds[1]) {
       preventSync = true;;
     }
 
-    bench.connect(opts.host, preventSync);
-
     if (opts.user) {
       bench.session.isUser = true;
     }
+
+    if (opts.file) {
+      bench.session.connect().ready(function(){
+        bench.session.parseFile(opts.file);
+      });
+    }
+
+    bench.connect(opts.host, preventSync);
   break;
 
   default:

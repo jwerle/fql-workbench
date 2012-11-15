@@ -124,6 +124,7 @@ fqlwb.Bench.prototype = utils.mixin({
             
             setTimeout(function(){ 
               self.sanitizeCompletions().propagateCompletions().resetPrompt();
+              self.emit('bench.synced')
             }, 50);
           }
 
@@ -141,14 +142,12 @@ fqlwb.Bench.prototype = utils.mixin({
       });
     }
 
-
     if (! this.debug) {
       this.server.console.filters.processBuffer = function(chunk) {
         self.session.connect().ready(function(){
-          self.session.query(chunk).complete(function(data, time, isQuery){
+          self.session.query(chunk).complete(function(data, time, isQuery, preventPromptReset){
             var msg = "Query took ".cyan + time.green + " seconds to execute.".cyan;
-
-            self.writeToSocket(yaml.stringify(data), isQuery? msg : null);
+            self.writeToSocket(yaml.stringify(data), (isQuery? msg : null), preventPromptReset);
           });
         });
 
@@ -176,17 +175,23 @@ fqlwb.Bench.prototype = utils.mixin({
     return this;
   },
 
-  writeToSocket : function(data, yield) {
+  writeToSocket : function(data, yield, preventPromptReset) {
     var server = this.getServer();
 
     if (server && server.console && server.console.socket) {
-      server.console.socket.write('\n' + data +'\n');
-      server.console.socket.write(server.console.prompt);
+      server.console.socket.write(data);
+
+      if (! preventPromptReset) {
+        server.console.socket.write(server.console.prompt);
+      }
     }
     else {
-      process.stdout.write('\n' + data +'\n');
+      process.stdout.write(data);
       process.stdout.write((yield || "") + '\n');
-      process.stdout.write(server.console.prompt);
+
+      if (! preventPromptReset) {
+        process.stdout.write(server.console.prompt);
+      }
     }
 
     return this;
@@ -213,7 +218,6 @@ fqlwb.Bench.prototype = utils.mixin({
 
     for (i = 0; i < this.completions.length; i++) {
       if (!!~ (index = this.completions.indexOf(this.completions[i])) && index != i) {
-        console.log("found dupe ", this.completions[i])
         this.completions.splice(i, i+1);
       }
     }
