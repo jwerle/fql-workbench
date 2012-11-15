@@ -16,13 +16,19 @@
 #
 ##
 
+@host = 0.0.0.0;
+@user = pentaho;
+@pass = eOvnly0m;
+@db   = warehouse;
+@port = 6889;
 
-:print Starting FQL to MySQL import script...
+:print Starting FQL to MySQL import script...;
 
 #
 # Connect to the Database
 #
-:mysql-connect -h 0.0.0.0 -u pentaho -p eOvnly0m -db warehouse -P 6889;
+:print Connecting to database "@db" using host "@host" on port "@port";
+:mysql-connect -h @host -u @user -p @pass -db @db -P @port;
 
 #
 # Export Table
@@ -32,10 +38,10 @@
 #
 # Export query
 #
-:export insights SELECT metric, value FROM insights WHERE object_id=:id AND metric='application_active_users' AND end_time=end_time_date('2011-06-26') AND period=period('month')
+:export insights SELECT metric, value FROM insights WHERE object_id=:id AND metric='application_active_users' AND end_time=end_time_date('2011-06-26') AND period=period('month');
 
 
 #
 # Exit on completion
 #
-:exit
+:exit;
